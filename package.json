@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/priyansh0202-coder/crm-backend#readme",
   "description": "",
+  "type": "module",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
