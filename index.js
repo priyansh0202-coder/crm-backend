@@ -7,6 +7,8 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import leadRoutes from "./routes/leadRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import dealRoutes from "./routes/dealRoutes.js";
+import activityRoutes from "./routes/activityRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
@@ -25,6 +27,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 
 app.use("/api/users", userRoutes);
+
+app.use("/api/deals", dealRoutes);
+
+app.use("/api/activities", activityRoutes);
 
 app.use(errorHandler);
 
