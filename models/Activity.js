@@ -30,7 +30,6 @@ const activitySchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// Index for faster queries
 activitySchema.index({ lead: 1 });
 activitySchema.index({ activityDate: -1 });
 

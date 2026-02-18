@@ -13,7 +13,6 @@ export const registerUser = async (req, res, next) => {
             throw new Error('Please add all fields');
         }
 
-        // Check if user exists
         const userExists = await User.findOne({ email });
 
         if (userExists) {
@@ -25,7 +24,6 @@ export const registerUser = async (req, res, next) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create user
         const user = await User.create({
             name,
             email,
@@ -55,7 +53,7 @@ export const registerUser = async (req, res, next) => {
     }
 };
 
-// ================= LOGIN =================
+//  login
 export const loginUser = async (req, res, next) => {
     try {
         const errors = validationResult(req);
@@ -106,7 +104,7 @@ export const loginUser = async (req, res, next) => {
 };
 
 
-// Generate JWT
+// JWT
 const generateToken = (id, role) => {
     return jwt.sign({ id, role }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,

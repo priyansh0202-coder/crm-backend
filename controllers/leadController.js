@@ -8,7 +8,6 @@ export const createLead = async (req, res, next) => {
         let assignedUser;
 
         if (req.user.role === "admin") {
-            // Get all sales users
             const salesUsers = await User.find({ role: "user" });
 
             if (salesUsers.length === 0) {
@@ -18,11 +17,9 @@ export const createLead = async (req, res, next) => {
                 });
             }
 
-            // Random selection
             const randomIndex = Math.floor(Math.random() * salesUsers.length);
             assignedUser = salesUsers[randomIndex]._id;
         } else {
-            // Sales assign to themselves
             assignedUser = req.user._id;
         }
 
@@ -54,12 +51,10 @@ export const getLeads = async (req, res, next) => {
 
         const query = {};
 
-        // Role-based filtering
         if (req.user.role === "user") {
             query.assignedTo = req.user._id;
         }
 
-        // Search by name or email
         if (search) {
             query.$or = [
                 { name: { $regex: search, $options: "i" } },
@@ -67,7 +62,6 @@ export const getLeads = async (req, res, next) => {
             ];
         }
 
-        // Filter by status
         if (status) {
             query.status = status;
         }
@@ -97,7 +91,7 @@ export const getLeads = async (req, res, next) => {
 };
 
 
-//GET single lead
+// single lead
 
 export const getLeadById = async (req, res, next) => {
     try {
@@ -110,7 +104,6 @@ export const getLeadById = async (req, res, next) => {
             });
         }
 
-        // Sales can only access their own leads
         if (
             req.user.role === "user" &&
             lead.assignedTo.toString() !== req.user._id.toString()

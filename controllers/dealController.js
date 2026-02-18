@@ -14,7 +14,6 @@ export const createDeal = async (req, res, next) => {
             });
         }
 
-        // Sales ownership check
         if (
             req.user.role === "user" &&
             lead.assignedTo.toString() !== req.user._id.toString()
@@ -70,7 +69,6 @@ export const getDeals = async (req, res, next) => {
                 })
                 .lean();
 
-            // Remove deals where lead didn't match
             deals = deals.filter((deal) => deal.lead !== null);
         }
 

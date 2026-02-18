@@ -14,7 +14,6 @@ export const createActivity = async (req, res, next) => {
             });
         }
 
-        // Sales ownership check
         if (
             req.user.role === "user" &&
             lead.assignedTo.toString() !== req.user._id.toString()
@@ -56,7 +55,6 @@ export const getActivitiesByLead = async (req, res, next) => {
             });
         }
 
-        // Sales ownership check
         if (
             req.user.role === "user" &&
             lead.assignedTo.toString() !== req.user._id.toString()

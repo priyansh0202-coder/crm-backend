@@ -16,7 +16,6 @@ export const getAllUsers = async (req, res, next) => {
 };
 
 
-
 export const getSalesUsersWithLeads = async (req, res, next) => {
     try {
         const salesUsers = await User.aggregate([
@@ -25,7 +24,7 @@ export const getSalesUsersWithLeads = async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "leads", // MongoDB collection name (lowercase plural)
+                    from: "leads", 
                     localField: "_id",
                     foreignField: "assignedTo",
                     as: "leads",

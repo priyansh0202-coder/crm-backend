@@ -23,7 +23,6 @@ const dealSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// Index for performance
 dealSchema.index({ stage: 1 });
 dealSchema.index({ lead: 1 });
 

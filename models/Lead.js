@@ -39,7 +39,6 @@ const leadSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// Indexing for optimization
 leadSchema.index({ assignedTo: 1 });
 leadSchema.index({ status: 1 });
 
