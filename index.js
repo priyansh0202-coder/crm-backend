@@ -10,7 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import dealRoutes from "./routes/dealRoutes.js";
 import activityRoutes from "./routes/activityRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
-
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 dotenv.config();
 
 connectDB();
@@ -31,6 +31,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/deals", dealRoutes);
 
 app.use("/api/activities", activityRoutes);
+
+app.use("/api/dashboard", dashboardRoutes);
 
 app.use(errorHandler);
 
