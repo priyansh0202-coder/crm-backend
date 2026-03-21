@@ -6,7 +6,6 @@ export const getDashboardData = async (req, res, next) => {
         let leadQuery = {};
         let dealQuery = {};
 
-        // If sales user → only their data
         if (req.user.role === "user") {
             leadQuery.assignedTo = req.user._id;
 
@@ -16,7 +15,6 @@ export const getDashboardData = async (req, res, next) => {
             dealQuery.lead = { $in: leadIds };
         }
 
-        // ===== Overview Counts =====
         const totalLeads = await Lead.countDocuments(leadQuery);
         const totalDeals = await Deal.countDocuments(dealQuery);
         const wonDeals = await Deal.countDocuments({
@@ -28,7 +26,6 @@ export const getDashboardData = async (req, res, next) => {
             stage: "Lost",
         });
 
-        // ===== Revenue (Sum of Won Deals) =====
         const revenueResult = await Deal.aggregate([
             { $match: { ...dealQuery, stage: "Won" } },
             {
@@ -41,7 +38,6 @@ export const getDashboardData = async (req, res, next) => {
 
         const totalRevenue = revenueResult[0]?.totalRevenue || 0;
 
-        // ===== Deals by Stage (Bar Chart) =====
         const dealsByStage = await Deal.aggregate([
             { $match: dealQuery },
             {
@@ -52,7 +48,6 @@ export const getDashboardData = async (req, res, next) => {
             },
         ]);
 
-        // ===== Leads by Status (Pie Chart) =====
         const leadsByStatus = await Lead.aggregate([
             { $match: leadQuery },
             {
